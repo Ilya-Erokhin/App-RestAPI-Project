@@ -9,12 +9,13 @@
 <a name="technologies"></a>
 # The following technologies are used:
 
-
-<img width="16%" title="Flask" src="media/Flask.svg">
-<img width="16%" title="GitHub" src="media/GitHub.svg">
-<img width="16%" title="PyCharm" src="media/PyCharm.svg">
-<img width="16%" title="Python" src="media/Python.svg">
-<img width="16%" title="API" src="media/API.svg">
+<p>
+<img width="15%" title="Flask" src="media/Flask.svg">
+<img width="15%" title="GitHub" src="media/GitHub.svg">
+<img width="15%" title="PyCharm" src="media/PyCharm.svg">
+<img width="15%" title="Python" src="media/Python.svg">
+<img width="15%" title="API" src="media/API.svg">
+</p>
 
 [To Table of Content ⬆](#table-of-contents)
 
