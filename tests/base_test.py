@@ -23,7 +23,7 @@ class BaseTest(TestCase):
             if "sqlalchemy" not in app.extensions:
                 db.init_app(app)
 
-    # Run once for every test METHOD
+    # Runs once for every test METHOD
     def setUp(self):
         with app.app_context():
             db.create_all()
