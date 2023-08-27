@@ -74,7 +74,6 @@ class StoreTest(BaseTest):
         with self.app() as client:
             with self.app_context():
                 StoreModel('test').save_to_db()
-# Get the list of stores
                 resp = client.get('/stores')
 
                 self.assertDictEqual({'stores': [{'name': 'test', 'items': []}]},
@@ -85,7 +84,6 @@ class StoreTest(BaseTest):
             with self.app_context():
                 StoreModel('test').save_to_db()
                 ItemModel('test', 19.99, 1).save_to_db()
-                # Get the list of stores
                 resp = client.get('/stores')
 
                 self.assertDictEqual({'stores': [{'name': 'test', 'items': [{'name': 'test', 'price': 19.99}]}]},

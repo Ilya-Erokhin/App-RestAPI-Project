@@ -23,5 +23,4 @@ class ItemTest(UnitBaseTest):
         }
 
         self.assertEqual(item.json(), expected,
-                         "The JSON export of the item is incorrect. Received {}, expected {}.".format(item.json(),
-                                                                                                      expected))
+                         f"The JSON export of the item is incorrect. Received {item.json()}, expected {expected}.")
