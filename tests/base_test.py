@@ -13,7 +13,7 @@ from db import db
 
 class BaseTest(TestCase):
     @classmethod
-    # Runs once for each test case
+    # Run once for each test case
     def setUpClass(cls):
         # Make sure database exists
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
@@ -23,7 +23,7 @@ class BaseTest(TestCase):
             if "sqlalchemy" not in app.extensions:
                 db.init_app(app)
 
-    # Runs once for every test METHOD
+    # Run once for every test METHOD
     def setUp(self):
         with app.app_context():
             db.create_all()
