@@ -20,7 +20,7 @@ class UserTest(BaseTest):
             with self.app_context():
                 client.post('/register', json={'username': 'test', 'password': '1234'})
                 auth_response = client.post('/auth',
-                                           data=json.dumps({'username': 'test', 'password': '1234'}),
+                                           json={'username': 'test', 'password': '1234'},
                                            headers={'Content-Type': 'application/json'})
                 self.assertIn('access_token', json.loads(auth_response.data).keys())
 

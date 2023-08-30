@@ -12,10 +12,12 @@ class ItemTest(BaseTest):
         with self.app() as client:
             with self.app_context():
                 UserModel('test', '1234').save_to_db()
-                auth_request = client.post('/auth',
-                                           data=json.dumps({'username': 'test', 'password': '1234'}),
-                                           headers={'Content-Type': 'application/json'})
-                auth_token = json.loads(auth_request.data)['access_token']
+
+                auth_resp = client.post('/auth',
+                                        json=({'username': 'test', 'password': '1234'}),
+                                        headers={'Content-Type': 'application/json'})
+                auth_token = json.loads(auth_resp.data)['access_token']
+
                 self.access_token = f'JWT {auth_token}'
 
     def test_get_item_no_auth(self):
@@ -24,7 +26,6 @@ class ItemTest(BaseTest):
                 resp = client.get('/item/test')
 
                 self.assertEqual(resp.status_code, 401)
-
 
     def test_get_item_not_found(self):
         with self.app() as client:
@@ -56,8 +57,9 @@ class ItemTest(BaseTest):
             with self.app_context():
                 StoreModel('test').save_to_db()
 
-                resp = client.post('/item/test', json={'price': 17.99, 'store_id': 1}, headers={'Authorization': self.access_token})
-
+                resp = client.post('/item/test',
+                                   json={'price': 17.99, 'store_id': 1},
+                                   headers={'Authorization': self.access_token})
 
                 self.assertEqual(resp.status_code, 201)
                 self.assertDictEqual({'name': 'test', 'price': 17.99},
@@ -80,7 +82,8 @@ class ItemTest(BaseTest):
             with self.app_context():
                 StoreModel('test').save_to_db()
 
-                resp = client.put('/item/test', json={'price': 17.99, 'store_id': 1}, headers={'Authorization': self.access_token})
+                resp = client.put('/item/test', json={'price': 17.99, 'store_id': 1},
+                                  headers={'Authorization': self.access_token})
 
                 self.assertEqual(resp.status_code, 200)
                 self.assertEqual(ItemModel.find_by_name('test').price, 17.99)
