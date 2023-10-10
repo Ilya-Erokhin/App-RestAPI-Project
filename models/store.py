@@ -9,6 +9,7 @@ class StoreModel(db.Model):
 
     items = db.relationship('ItemModel', back_populates='store', lazy='dynamic')
 
+# Only the __init__ method is Unit Testable
     def __init__(self, name):
         self.name = name
 

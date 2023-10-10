@@ -13,7 +13,8 @@ from db import db
 
 class BaseTest(TestCase):
     @classmethod
-    # Run once for each test case
+    # Run once for Each TEST CASE (Entire Class)
+        # Here things, that we need to do ONCE for each Class
     def setUpClass(cls):
         # Make sure database exists
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
@@ -23,7 +24,7 @@ class BaseTest(TestCase):
             if "sqlalchemy" not in app.extensions:
                 db.init_app(app)
 
-    # Runs once for every test METHOD
+    # Runs once for Every TEST METHOD
     def setUp(self):
         with app.app_context():
             db.create_all()

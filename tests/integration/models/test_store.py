@@ -30,27 +30,38 @@ class StoreTest(BaseTest):
     def test_store_relationship(self):
         with self.app_context():
             store = StoreModel('test')
-            item = ItemModel('test_item', 19.99, 1)
+            item = ItemModel('MyItem', 19.99, 1)
 
-# First save store, and then item
-# Because store doesn't need the item, but the itme need the store
             store.save_to_db()
             item.save_to_db()
 
             self.assertEqual(store.items.count(), 1)
-            self.assertEqual(store.items.first().name, 'test_item')
+            self.assertEqual(store.items.first().name, 'MyItem')
+
+    def test_store_json_no_items(self):
+        with self.app_context():
+            store = StoreModel('MyStore')
+
+            store.save_to_db()
+
+            expected = {
+                'name': 'MyStore',
+                'items': []
+            }
+
+            self.assertDictEqual(store.json(), expected)
 
     def test_store_json_with_item(self):
         with self.app_context():
-            store = StoreModel('test')
-            item = ItemModel('test_item', 19.99, 1)
+            store = StoreModel('TestStore')
+            item = ItemModel('TestItem', 72.39, 1)
 
             store.save_to_db()
             item.save_to_db()
 
             expected = {
-                'name': 'test',
-                'items': [{'name': 'test_item', 'price': 19.99}]
+                'name': 'TestStore',
+                'items': [{'name': 'TestItem', 'price': 72.39}]
             }
 
             self.assertDictEqual(store.json(), expected)

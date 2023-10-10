@@ -5,6 +5,7 @@ from models.item import ItemModel
 
 class Item(Resource):
     parser = reqparse.RequestParser()
+
     parser.add_argument('price',
                         type=float,
                         required=True,
@@ -14,6 +15,9 @@ class Item(Resource):
                         required=True,
                         help="Every item needs a store id.")
 
+# @jwt_required() - Check whether the Authorization Header was Included with the JWT (jwt - in app.py) when we call "/auth" endpoint
+    # Before we Retrive an Item, we're going to need to have JWT in the Authorization Header
+    # Ensures that the User making the Request to this Route, Must provide a VALID JSON Web Token (JWT) in the Request Header
     @jwt_required()
     def get(self, name):
         item = ItemModel.find_by_name(name)
@@ -26,7 +30,6 @@ class Item(Resource):
             return {'message': f"An item with name '{name}' already exists."}, 400
 
         data = Item.parser.parse_args()
-
         item = ItemModel(name, **data)
 
         try:
@@ -45,7 +48,6 @@ class Item(Resource):
 
     def put(self, name):
         data = Item.parser.parse_args()
-
         item = ItemModel.find_by_name(name)
 
         if item is None:

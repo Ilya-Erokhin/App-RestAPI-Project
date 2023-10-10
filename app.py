@@ -16,17 +16,16 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose123'
+
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity) # /auth
+jwt = JWT(app, authenticate, identity)  # /auth
 
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(StoreList, '/stores')
-
 api.add_resource(UserRegister, '/register')
-
 
 @app.errorhandler(JWTError)
 def auth_error_handler(err):
